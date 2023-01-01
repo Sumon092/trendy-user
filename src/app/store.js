@@ -7,7 +7,7 @@ const userReducer = require('../features/users/userSlice')
 const store = configureStore({
     reducer: {
         user: userReducer
-    }
+    },
     // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger)
 })
 

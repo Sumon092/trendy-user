@@ -1,10 +1,13 @@
-import Home from './pages/Home';
+
+import ShowUser from "./components/Home/ShowUser"
+import Cards from './components/Home/Card';
 
 
 function App() {
   return (
     <div>
-      <Home />
+      <Cards />
+      <ShowUser />
     </div>
   );
 }
