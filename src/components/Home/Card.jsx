@@ -10,9 +10,9 @@ const { Meta } = Card;
 const Cards = () => {
     return (
         <section>
-            <Row gutter={[16,
+            <Row gutter={[16, 16
             ]}>
-                <Col span={6}>
+                <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }} lg={{ span: 6 }}>
                     <div className='container'>
                         <div className='image-container'>
                             <div className='avatar'>
@@ -50,7 +50,7 @@ const Cards = () => {
                         </div>
                     </div>
                 </Col>
-                <Col span={6}>
+                <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }} lg={{ span: 6 }}>
                     <div className='container'>
                         <div className='image-container'>
                             <div className='avatar'>
@@ -88,7 +88,7 @@ const Cards = () => {
                         </div>
                     </div>
                 </Col>
-                <Col span={6}>
+                <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }} lg={{ span: 6 }}>
                     <div className='container'>
                         <div className='image-container'>
                             <div className='avatar'>
@@ -126,7 +126,7 @@ const Cards = () => {
                         </div>
                     </div>
                 </Col>
-                <Col span={6}>
+                <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }} lg={{ span: 6 }}>
                     <div className='container'>
                         <div className='image-container'>
                             <div className='avatar'>
