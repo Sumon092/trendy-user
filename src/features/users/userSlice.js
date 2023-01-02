@@ -9,13 +9,21 @@ const initialState = {
 }
 
 // create async thunk
-export const fetchUsers = createAsyncThunk("post/fetchPosts", async () => {
+export const fetchUsers = createAsyncThunk("post/fetchUsers", async () => {
     const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
     );
     const users = await response.json();
 
     return users;
+});
+export const deleteUser = createAsyncThunk("post/deleteUser", async ({ id }) => {
+    const response = await fetch(
+        `https://jsonplaceholder.typicode.com/users/${id}`, {
+        method: 'DELETE'
+    });
+    const user = await response.json();
+    return user;
 });
 
 const userSlice = createSlice({
@@ -35,7 +43,21 @@ const userSlice = createSlice({
             state.users = []
             state.error = action.error.message
         })
-    }
+        //DELETE USER
+        builder.addCase(deleteUser.pending, state => {
+            state.loading = true
+        })
+        builder.addCase(deleteUser.fulfilled, (state, action) => {
+            state.loading = false
+            state.users = action.payload
+            state.error = ''
+        })
+        builder.addCase(deleteUser.rejected, (state, action) => {
+            state.loading = false
+            state.users = []
+            state.error = action.error.message
+        })
+    },
 })
 
 // module.exports = userSlice.reducer

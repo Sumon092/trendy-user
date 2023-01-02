@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@ant-design/pro-components": "^2.3.49",
+    "@dicebear/avatars": "^4.10.7",
+    "@dicebear/avatars-male-sprites": "^4.10.7",
     "@reduxjs/toolkit": "^1.9.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

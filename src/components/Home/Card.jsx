@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { MailOutlined, PhoneOutlined, DeleteOutlined, HeartOutlined, EditFilled, GlobalOutlined } from '@ant-design/icons';
 import { Button, Modal, Card, Row, Col, Form, Input } from 'antd';
 import { useState } from 'react';
 import './Card.css';
-import { fetchUsers } from '../../features/users/userSlice';
-// const { fetchUsers } = require('../../features/users/userSlice');
+import { deleteUser, fetchUsers } from '../../features/users/userSlice';
+import Loading from '../../utils/Loading';
 
 
 const Cards = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.user);
-    console.log(user);
     useEffect(() => {
         dispatch(fetchUsers())
-    }, [])
+    }, [dispatch])
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
@@ -35,17 +33,17 @@ const Cards = () => {
     };
     return (
         <section>
-
+            {user.Loading && <Loading />}
             <Row gutter={[16, 16
             ]}>
-                {user.loading && <loading />}
+
                 {
                     user.users.map((user) => (
                         <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }} lg={{ span: 6 }}>
                             <div className='container'>
                                 <div className='image-container'>
                                     <div className='avatar'>
-                                        <img src="https://avatars.dicebear.com/v2/avataaars/Karianne.svg?options[mood][]=happy" alt="" />
+                                        <img src={`https://avatars.dicebear.com/v2/avataaars/${user.name}.svg?options[mood][]=happy `} alt="" />
                                     </div>
                                 </div>
 
@@ -143,8 +141,9 @@ const Cards = () => {
                                         </Modal>
                                     </div>
                                     <div className='button' style={{ border: 'none' }}>
-                                        <Button style={{ border: "none", background: 'none', boxShadow: 'none' }} icon={<DeleteOutlined />}></Button>
+                                        <Button onClick={() => dispatch(deleteUser({ id: user.id }))} style={{ border: "none", background: 'none', boxShadow: 'none' }} icon={<DeleteOutlined />}></Button>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </Col>
