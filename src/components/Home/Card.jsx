@@ -33,7 +33,7 @@ const Cards = () => {
     };
     return (
         <section>
-            {user.Loading && <Loading />}
+            {user.loading && <Loading />}
             <Row gutter={[16, 16
             ]}>
 
@@ -143,7 +143,7 @@ const Cards = () => {
                                     <div className='button' style={{ border: 'none' }}>
                                         <Button onClick={() => dispatch(deleteUser({ id: user.id }))} style={{ border: "none", background: 'none', boxShadow: 'none' }} icon={<DeleteOutlined />}></Button>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </Col>
