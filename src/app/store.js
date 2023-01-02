@@ -1,7 +1,7 @@
-const configureStore = require('@reduxjs/toolkit').configureStore
+import { configureStore } from '@reduxjs/toolkit'
 // const reduxLogger = require('redux-logger')
 
-const userReducer = require('../features/users/userSlice')
+import userReducer from '../features/users/userSlice';
 // const logger = reduxLogger.createLogger()
 
 const store = configureStore({
@@ -11,4 +11,4 @@ const store = configureStore({
     // middleware: getDefaultMiddleware => getDefaultMiddleware().concat(logger)
 })
 
-module.exports = store;
+export default store;

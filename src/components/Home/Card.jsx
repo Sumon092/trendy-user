@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { MailOutlined, PhoneOutlined, DeleteOutlined, HeartOutlined, EditFilled, GlobalOutlined } from '@ant-design/icons';
 import { Button, Modal, Card, Row, Col, Form, Input } from 'antd';
 import { useState } from 'react';
 import './Card.css';
-const { fetchUsers } = require('../../features/users/userSlice');
+import { fetchUsers } from '../../features/users/userSlice';
+// const { fetchUsers } = require('../../features/users/userSlice');
 
 
 const Cards = () => {

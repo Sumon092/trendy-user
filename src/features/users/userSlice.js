@@ -9,7 +9,7 @@ const initialState = {
 }
 
 // create async thunk
-const fetchUsers = createAsyncThunk("post/fetchPosts", async () => {
+export const fetchUsers = createAsyncThunk("post/fetchPosts", async () => {
     const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
     );
@@ -38,5 +38,6 @@ const userSlice = createSlice({
     }
 })
 
-module.exports = userSlice.reducer
-module.exports.fetchUsers = fetchUsers;
+// module.exports = userSlice.reducer
+// module.exports.fetchUsers = fetchUsers;
+export default userSlice.reducer;
