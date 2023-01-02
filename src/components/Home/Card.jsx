@@ -33,11 +33,12 @@ const Cards = () => {
     };
     return (
         <section>
+
             <Row gutter={[16, 16
             ]}>
+                {user.loading && <loading />}
                 {
                     user.users.map((user) => (
-                        // <li key={user.id}>{user.name}</li>
                         <Col span={6} xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 8 }} lg={{ span: 6 }}>
                             <div className='container'>
                                 <div className='image-container'>
@@ -48,10 +49,10 @@ const Cards = () => {
 
                                 <Card style={{ borderRadius: "0" }}>
                                     <div className='card-info'>
-                                        <h3>{user.name}</h3>
+                                        <h3 key={user.id}>{user.name}</h3>
                                         <div className='info-detail'>
                                             <MailOutlined />
-                                            <p>{user.email}</p>
+                                            <p key={user.id}>{user.email}</p>
                                         </div>
                                         <div className='info-detail'>
                                             <PhoneOutlined />
@@ -70,7 +71,9 @@ const Cards = () => {
 
                                     <div className='button'>
                                         <Button onClick={showModal} style={{ border: "none", background: 'none', boxShadow: 'none' }} icon={<EditFilled />}></Button>
-                                        <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+                                        <Modal maskStyle={{
+                                            backgroundColor: `#00000010`
+                                        }} title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                                             <Form
                                                 name="basic"
                                                 labelCol={{
@@ -96,7 +99,7 @@ const Cards = () => {
                                                         },
                                                     ]}
                                                 >
-                                                    <Input />
+                                                    <Input defaultValue={user.name} />
                                                 </Form.Item>
                                                 <Form.Item
                                                     label="email"
@@ -108,7 +111,7 @@ const Cards = () => {
                                                         },
                                                     ]}
                                                 >
-                                                    <Input />
+                                                    <Input defaultValue={user.email} />
                                                 </Form.Item>
                                                 <Form.Item
                                                     label="phone"
@@ -120,7 +123,7 @@ const Cards = () => {
                                                         },
                                                     ]}
                                                 >
-                                                    <Input />
+                                                    <Input defaultValue={user.phone} />
                                                 </Form.Item>
                                                 <Form.Item
                                                     label="website"
@@ -132,7 +135,7 @@ const Cards = () => {
                                                         },
                                                     ]}
                                                 >
-                                                    <Input />
+                                                    <Input defaultValue={user.website} />
                                                 </Form.Item>
                                             </Form>
                                         </Modal>
