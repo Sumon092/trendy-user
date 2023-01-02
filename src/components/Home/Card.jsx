@@ -4,7 +4,7 @@ import { MailOutlined, PhoneOutlined, DeleteOutlined, HeartOutlined, EditFilled,
 import { Button, Modal, Card, Row, Col, Form, Input } from 'antd';
 import { useState } from 'react';
 import './Card.css';
-import { fetchUsers } from '../../features/users/userSlice';
+const { fetchUsers } = require('../../features/users/userSlice');
 
 
 const Cards = () => {
