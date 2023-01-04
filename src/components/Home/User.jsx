@@ -1,16 +1,16 @@
 
 import { Button, Card, Col, Form, Input, Modal } from 'antd';
 import { useState } from 'react';
-import { MailOutlined, PhoneOutlined, DeleteOutlined, HeartOutlined, EditFilled, GlobalOutlined } from '@ant-design/icons';
+import { MailOutlined, HeartFilled, PhoneOutlined, DeleteOutlined, HeartOutlined, EditFilled, GlobalOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { deleteUser, likeUser } from '../../features/users/userSlice';
+import { deleteUser, fetchUsers, likeUser } from '../../features/users/userSlice';
 
 
 const User = ({ user }) => {
     const { id, name, email, phone, website } = user || {};
     const dispatch = useDispatch()
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const arr = [];
+    const [isLiked, setIsLiked] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -29,11 +29,12 @@ const User = ({ user }) => {
     };
     const handleDelete = () => {
         dispatch(deleteUser(id));
-        console.log(id, 'deleted id clicked')
     };
-    const handleLike = () => {
-        // const dltId = id.filter((item) => item.id !== id);
-        // dispatch(likeUse));
+    const handleLike = (e) => {
+        // dispatch(likeUser(id));
+        setIsLiked(true)
+        console.log(`user id ${id} liked`)
+
     }
 
     return (
@@ -65,7 +66,14 @@ const User = ({ user }) => {
                     </Card>
                     <div className='button-container'>
                         <div className='button'>
-                            <Button onClick={handleLike} style={{ border: "none", background: 'none', boxShadow: 'none', color: 'red' }} icon={<HeartOutlined />}></Button>
+                            {
+                                !isLiked &&
+                                <Button loading={false} onClick={handleLike} style={{ border: "none", background: 'none', boxShadow: 'none', color: 'red' }} icon={<HeartOutlined />}></Button>
+                            }
+                            {
+                                isLiked && <Button loading={false} onClick={handleLike} style={{ border: "none", background: 'none', boxShadow: 'none', color: 'red' }} icon={<HeartFilled />}></Button>
+                            }
+
                         </div>
 
                         <div onClick={showModal} className='button'>

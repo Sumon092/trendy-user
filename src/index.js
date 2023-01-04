@@ -6,15 +6,16 @@ import 'antd/dist/reset.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
+import { store, persistor } from './app/store';
+// import { PersistGate } from 'redux-persist/integration/react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-      <React.StrictMode>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
         <App />
-      </React.StrictMode>
+      {/* </PersistGate> */}
     </Provider >
   </BrowserRouter>
 

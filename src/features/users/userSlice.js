@@ -6,32 +6,36 @@ const initialState = {
     users: [],
     loading: false,
     isError: false,
-    error: ''
+    error: '',
+    liked: false
 }
 
 // create async thunk
 export const fetchUsers = createAsyncThunk("user/fetchUsers", async () => {
     const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
+        "http://localhost:9000/users"
     );
     const users = await response.json();
 
     return users;
 });
 export const deleteUser = createAsyncThunk("user/deleteUser", async (id) => {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+    const response = await fetch(`http://localhost:9000/users/${id}`, {
         method: 'DELETE',
     });
     const userId = await response.json();
     return userId;
 });
-export const likeUser = createAsyncThunk("user/likeUser", async ({ id }) => {
+export const likeUser = createAsyncThunk("user/likeUser", async (id) => {
     const response = await fetch(
-        `https://jsonplaceholder.typicode.com/users/${id.id}`, {
+        `http://localhost:9000/users/${id}`, {
         method: 'POST',
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
     });
-    const user = await response.json();
-    return user.id;
+    const liked = await response.json();
+    return liked;
 });
 
 const userSlice = createSlice({
@@ -62,6 +66,7 @@ const userSlice = createSlice({
             state.loading = false
             state.users = action.payload
             state.error = ''
+            state.liked = true
         })
         builder.addCase(likeUser.rejected, (state, action) => {
             state.loading = false
@@ -76,10 +81,6 @@ const userSlice = createSlice({
             state.loading = false
             state.users = action.payload
             state.error = ''
-
-            // state.deleteUser = state.deleteUser.filter(
-            //     (t) => t.id !== action.payload
-            // );
         })
         builder.addCase(deleteUser.rejected, (state, action) => {
             state.loading = false
