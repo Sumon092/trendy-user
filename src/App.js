@@ -1,11 +1,9 @@
-import Cards from './components/Home/Card';
-import Loading from './utils/Loading';
+import Users from './components/Home/Users';
 
 function App() {
   return (
     <div>
-      {/* <Loading /> */}
-      <Cards />
+      <Users />
 
     </div>
   );

@@ -3,13 +3,14 @@ const createSlice = require('@reduxjs/toolkit').createSlice
 const createAsyncThunk = require('@reduxjs/toolkit').createAsyncThunk
 
 const initialState = {
-    loading: false,
     users: [],
+    loading: false,
+    isError: false,
     error: ''
 }
 
 // create async thunk
-export const fetchUsers = createAsyncThunk("post/fetchUsers", async () => {
+export const fetchUsers = createAsyncThunk("user/fetchUsers", async () => {
     const response = await fetch(
         "https://jsonplaceholder.typicode.com/users"
     );
@@ -17,33 +18,57 @@ export const fetchUsers = createAsyncThunk("post/fetchUsers", async () => {
 
     return users;
 });
-export const deleteUser = createAsyncThunk("post/deleteUser", async ({ id }) => {
+export const deleteUser = createAsyncThunk("user/deleteUser", async (id) => {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+        method: 'DELETE',
+    });
+    const userId = await response.json();
+    return userId;
+});
+export const likeUser = createAsyncThunk("user/likeUser", async ({ id }) => {
     const response = await fetch(
-        `https://jsonplaceholder.typicode.com/users/${id}`, {
-        method: 'DELETE'
+        `https://jsonplaceholder.typicode.com/users/${id.id}`, {
+        method: 'POST',
     });
     const user = await response.json();
-    return user;
+    return user.id;
 });
 
 const userSlice = createSlice({
     name: 'user',
     initialState,
     extraReducers: builder => {
+        // GET USER
         builder.addCase(fetchUsers.pending, state => {
-            state.loading = true
+            state.isError = false;
+            state.loading = true;
         })
         builder.addCase(fetchUsers.fulfilled, (state, action) => {
+            state.isError = false;
+            state.loading = false;
+            state.users = action.payload;
+        })
+        builder.addCase(fetchUsers.rejected, (state, action) => {
+            state.loading = false;
+            state.isError = true;
+            state.error = action.error?.message;
+            state.users = [];
+        })
+        // LIKE USER
+        builder.addCase(likeUser.pending, state => {
+            state.loading = true
+        })
+        builder.addCase(likeUser.fulfilled, (state, action) => {
             state.loading = false
             state.users = action.payload
             state.error = ''
         })
-        builder.addCase(fetchUsers.rejected, (state, action) => {
+        builder.addCase(likeUser.rejected, (state, action) => {
             state.loading = false
             state.users = []
             state.error = action.error.message
         })
-        //DELETE USER
+        // DELETE USER
         builder.addCase(deleteUser.pending, state => {
             state.loading = true
         })
@@ -51,6 +76,10 @@ const userSlice = createSlice({
             state.loading = false
             state.users = action.payload
             state.error = ''
+
+            // state.deleteUser = state.deleteUser.filter(
+            //     (t) => t.id !== action.payload
+            // );
         })
         builder.addCase(deleteUser.rejected, (state, action) => {
             state.loading = false
@@ -60,6 +89,4 @@ const userSlice = createSlice({
     },
 })
 
-// module.exports = userSlice.reducer
-// module.exports.fetchUsers = fetchUsers;
 export default userSlice.reducer;
